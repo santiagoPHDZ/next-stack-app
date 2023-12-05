@@ -1,0 +1,62 @@
+"use client"
+
+import Link from "next/link"
+import NavbarContainer from "./containers/navbar-container"
+import { HStack } from "./stack"
+import { Text } from "./text"
+import { Button } from "./ui/button"
+import { MoveUpRight } from "lucide-react"
+import { useClerk } from "@clerk/nextjs"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
+import { Avatar } from "@radix-ui/react-avatar"
+import { AvatarFallback, AvatarImage } from "./ui/avatar"
+
+const NavBar = () => {
+
+    const { user, signOut } = useClerk()
+
+    return (
+        <nav>
+            <NavbarContainer className="border-b top-0 z-30 bg-background">
+                <HStack className="w-full h-14 items-center justify-between">
+                    <Link
+                        href="/"
+                    >
+                        <Text level={1} className="text-base font-semibold">
+                            Next Stack App
+                        </Text>
+                    </Link>
+                    {user?.firstName}
+                    <HStack className="items-center justify-center space-x-2">
+                        {
+                            user ? (
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Avatar className="h-9 w-9 rounded-full">
+                                            <AvatarImage src={user.imageUrl} />
+                                            <AvatarFallback>{user.firstName}</AvatarFallback>
+                                        </Avatar>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem onClick={() => signOut()}>Log Out</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            ) : (
+                                <Link
+                                    href="/dashboard"
+                                >
+                                    <Button variant="link" className=" font-light">
+                                        Get started
+                                        <MoveUpRight className="w-4 h-4 ml-1" />
+                                    </Button>
+                                </Link>
+                            )
+                        }
+                    </HStack>
+                </HStack>
+            </NavbarContainer>
+        </nav>
+    )
+}
+
+export default NavBar
