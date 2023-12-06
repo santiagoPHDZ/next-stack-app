@@ -29,7 +29,8 @@ const createContext = cache(() => {
   });
 });
 
-export const trpc = createTRPCProxyClient<typeof appRouter>({
+// Call for server components
+export const apiServer = createTRPCProxyClient<typeof appRouter>({
   transformer,
   links: [
     loggerLink({

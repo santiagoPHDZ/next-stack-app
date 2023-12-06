@@ -11,8 +11,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Avatar } from "@radix-ui/react-avatar"
 import { AvatarFallback, AvatarImage } from "./ui/avatar"
 import { user } from "@prisma/client"
+import { ThemeToggle } from "./theme-toggle"
 
-const NavBar = ({user}: {user: user | null}) => {
+const NavBar = ({ user }: { user: user | null }) => {
 
     const { signOut } = useClerk()
 
@@ -34,7 +35,7 @@ const NavBar = ({user}: {user: user | null}) => {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Avatar className="h-9 w-9 rounded-full">
-                                            <AvatarImage src={user.imageUrl ?? ""} className=" rounded-full"/>
+                                            <AvatarImage src={user.imageUrl ?? ""} className=" rounded-full" />
                                             <AvatarFallback>{user.firstName.charAt(0)}</AvatarFallback>
                                         </Avatar>
                                     </DropdownMenuTrigger>
@@ -53,6 +54,8 @@ const NavBar = ({user}: {user: user | null}) => {
                                 </Link>
                             )
                         }
+
+                        <ThemeToggle />
                     </HStack>
                 </HStack>
             </NavbarContainer>

@@ -1,10 +1,10 @@
 import MainContainer from "@/components/containers/main-container"
 import NavBar from "@/components/navbar"
-import { getUser } from "@/server/services/user"
+import { apiServer } from "@/trpc/server";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
 
-  const user = await getUser()
+  const user = await apiServer.user.getCurrent.query()
 
   return (
     <main className="w-screen h-screen">

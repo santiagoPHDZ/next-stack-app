@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 // Clerk Auth
 import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from '@/trpc/trpc-provider';
+import { ThemeProvider } from '@/components/theme-provider';
 
 // Metadata
 export const metadata: Metadata = {
@@ -23,7 +24,14 @@ export default function RootLayout({
       <html lang="en">
         <TRPCReactProvider cookies={cookies().toString()}>
           <body className={GeistSans.className}>
-            {children}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
           </body>
         </TRPCReactProvider>
       </html>
