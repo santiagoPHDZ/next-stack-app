@@ -1,6 +1,6 @@
 import MainContainer from "@/components/containers/main-container"
 import NavBar from "@/components/navbar"
-import { getUser } from "@/lib/services/user"
+import { getUser } from "@/server/services/user"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
 

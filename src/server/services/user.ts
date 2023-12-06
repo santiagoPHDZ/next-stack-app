@@ -1,6 +1,6 @@
+import { db } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs";
 import { user } from "@prisma/client";
-import { db } from "../prisma";
 
 export async function getUser(): Promise<user | null> {
 

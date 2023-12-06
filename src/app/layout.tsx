@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans';
 import '@/styles/globals.css'
+import { cookies } from "next/headers";
 
 // Clerk Auth
 import { ClerkProvider } from '@clerk/nextjs'
+import { TRPCReactProvider } from '@/trpc/trpc-provider';
 
 // Metadata
 export const metadata: Metadata = {
@@ -19,7 +21,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={GeistSans.className}>{children}</body>
+        <TRPCReactProvider cookies={cookies().toString()}>
+          <body className={GeistSans.className}>
+            {children}
+          </body>
+        </TRPCReactProvider>
       </html>
     </ClerkProvider>
   )
