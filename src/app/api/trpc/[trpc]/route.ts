@@ -1,20 +1,20 @@
 
-import { appRouter } from '../../../../trpc';
-import { createTRPCContext } from '../../../../trpc/trpc';
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import { NextRequest } from 'next/server';
+// import { appRouter } from '../../../../trpc';
+// import { createTRPCContext } from '../../../../trpc/trpc';
+// import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
+// import { NextRequest } from 'next/server';
 
-// Handle TRPC endpoint requests
-const handler = (req: NextRequest) =>
-    fetchRequestHandler({
-        endpoint: '/api/trpc',
-        req,
-        router: appRouter,
-        createContext: () => createTRPCContext({ req }),
-        onError: ({ error, path }) => {
-            // Recived TRPC error
-            console.error(`🛑 tRPC ERROR on '${path}'`, error);
-        }
-    });
+// // Handle TRPC endpoint requests
+// const handler = (req: NextRequest) =>
+//     fetchRequestHandler({
+//         endpoint: '/api/trpc',
+//         req,
+//         router: appRouter,
+//         createContext: () => createTRPCContext({ req }),
+//         onError: ({ error, path }) => {
+//             // Recived TRPC error
+//             console.error(`🛑 tRPC ERROR on '${path}'`, error);
+//         }
+//     });
 
-export { handler as GET, handler as POST };
+// export { handler as GET, handler as POST };
