@@ -4,7 +4,7 @@ import { AuthObject } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 export default authMiddleware({
-  publicRoutes: ['/'], // auth is called, but not restricted
+  publicRoutes: ['/'], // auth is called, but not restricted | on all other routs auth will be requiered
   // ignoredRoutes: ['/'], // ignored, wont call middleware
   afterAuth(auth, req, evt) {
 
