@@ -1,8 +1,8 @@
-import { api } from "@/trpc/server";
+import { trpc } from "@/trpc/server";
 
 const Page = async () => {
 
-    const hello = await api.user.hello.query({ text: "from tRPC" });
+    const hello = await trpc.user.hello.query({ text: "from tRPC" });
 
     console.log("from page", hello.greeting)
 
