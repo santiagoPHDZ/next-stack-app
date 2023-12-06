@@ -2,9 +2,10 @@
 import { TRPCError, initTRPC } from '@trpc/server';
 import superjson from 'superjson'
 import { currentUser } from '@clerk/nextjs';
-import { NextRequest } from 'next/server';
 import { ZodError } from 'zod';
 import { getUser } from '../services/user';
+
+// Create context
 
 // https://clerk.com/docs/references/nextjs/trpc
 // https://github.com/t3-oss/create-t3-app

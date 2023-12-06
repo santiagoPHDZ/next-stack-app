@@ -8,7 +8,7 @@ import { useState } from "react";
 import { type AppRouter } from "@/server/trpc/root";
 import { getUrl, transformer } from "./shared";
 
-export const api = createTRPCReact<AppRouter>();
+export const trpc = createTRPCReact<AppRouter>();
 
 export function TRPCReactProvider(props: {
     children: React.ReactNode;
@@ -17,7 +17,7 @@ export function TRPCReactProvider(props: {
     const [queryClient] = useState(() => new QueryClient());
 
     const [trpcClient] = useState(() =>
-        api.createClient({
+        trpc.createClient({
             transformer,
             links: [
                 loggerLink({
@@ -38,11 +38,12 @@ export function TRPCReactProvider(props: {
         })
     );
 
+    // Create client provider
     return (
         <QueryClientProvider client={queryClient}>
-            <api.Provider client={trpcClient} queryClient={queryClient}>
+            <trpc.Provider client={trpcClient} queryClient={queryClient}>
                 {props.children}
-            </api.Provider>
+            </trpc.Provider>
         </QueryClientProvider>
     );
 }
