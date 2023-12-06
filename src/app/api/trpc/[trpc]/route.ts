@@ -7,7 +7,7 @@ import { NextRequest } from 'next/server';
 // Handle TRPC endpoint requests
 const handler = (req: NextRequest) =>
     fetchRequestHandler({
-        endpoint: '/api/trpc',
+        endpoint: process.env.TRPC_ENDPOINT!,
         req,
         router: appRouter,
         createContext: () => createTRPCContext({ req }),
