@@ -27,15 +27,15 @@ const NavBar = ({user}: {user: user | null}) => {
                             Next Stack App
                         </Text>
                     </Link>
-                    {user?.firstName}
+
                     <HStack className="items-center justify-center space-x-2">
                         {
                             user ? (
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Avatar className="h-9 w-9 rounded-full">
-                                            <AvatarImage src={user.imageUrl ?? ""} />
-                                            <AvatarFallback>{user.firstName}</AvatarFallback>
+                                            <AvatarImage src={user.imageUrl ?? ""} className=" rounded-full"/>
+                                            <AvatarFallback>{user.firstName.charAt(0)}</AvatarFallback>
                                         </Avatar>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
