@@ -10,10 +10,11 @@ import { useClerk } from "@clerk/nextjs"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Avatar } from "@radix-ui/react-avatar"
 import { AvatarFallback, AvatarImage } from "./ui/avatar"
+import { user } from "@prisma/client"
 
-const NavBar = () => {
+const NavBar = ({user}: {user: user | null}) => {
 
-    const { user, signOut } = useClerk()
+    const { signOut } = useClerk()
 
     return (
         <nav>
@@ -33,7 +34,7 @@ const NavBar = () => {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Avatar className="h-9 w-9 rounded-full">
-                                            <AvatarImage src={user.imageUrl} />
+                                            <AvatarImage src={user.imageUrl ?? ""} />
                                             <AvatarFallback>{user.firstName}</AvatarFallback>
                                         </Avatar>
                                     </DropdownMenuTrigger>

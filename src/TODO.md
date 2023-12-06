@@ -5,3 +5,4 @@
 - [x] add clerk auth
 - [] add prisma
 - [] add trpc
+- [] add upload thing
