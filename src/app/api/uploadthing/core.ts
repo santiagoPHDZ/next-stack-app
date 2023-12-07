@@ -31,11 +31,11 @@ export const ourFileRouter = {
 
       if (!user) throw Error("Unauthorized")
 
-      const { key, name, size } = file
+      const { key, name, size, url } = file
 
-      const url = `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${key}`
+      // const url = `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${key}`
 
-      const data = await db.file.create({
+      await db.file.create({
         data: {
           name,
           size,
@@ -44,14 +44,7 @@ export const ourFileRouter = {
         }
       })
 
-      const response = {
-        id: data.id,
-        url: data.url,
-        name: data.name,
-        size: data.size
-      }
-
-      return response;
+      return;
     }),
 } satisfies FileRouter;
 
