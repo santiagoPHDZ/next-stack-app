@@ -46,7 +46,7 @@ const EditUserForm = ({ user }: { user: user }) => {
             }
 
             const response: string[] = res!.map((r) => {
-                return r.serverData.url
+                return r.url
             })
 
             imageUrl = response[0]
