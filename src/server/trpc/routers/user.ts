@@ -32,5 +32,6 @@ export const userRouter = createTRPCRouter({
     postCurrent: publicProcedure
         .mutation(async ({ input }) => {
             console.log("Toggled")
+            return "hi"
         }),
 })
