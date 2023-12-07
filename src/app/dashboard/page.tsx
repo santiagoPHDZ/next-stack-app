@@ -11,7 +11,7 @@ const Page = () => {
 
     // if (!user) return <Indicator status="unauth" />
 
-    const { mutate, data, error } = apiClient.user.postCurrent.useMutation()
+    const { mutate, data, error, status } = apiClient.user.postCurrent.useMutation()
     return (
         <div className="w-full h-full">
             {/* <Card className="w-full mt-8">
@@ -28,9 +28,16 @@ const Page = () => {
             <Button onClick={() => {
                 mutate()
             }}>
-                {data}
+                
                 click
             </Button>
+
+            <div>
+                status: {status}
+            </div>
+            <div>
+                err: {error?.data?.code}
+            </div>
         </div>
     )
 }
