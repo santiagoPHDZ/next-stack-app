@@ -14,6 +14,8 @@ import { apiClient } from '@/trpc/trpc-provider';
 import { Input } from '../ui/input';
 // import Dropzone from '../dropzone';
 import { useToast } from '../ui/use-toast';
+import { useUploadThing } from '@/lib/uploadthing';
+import Dropzone from '../dropzone';
 
 const EditUserForm = ({ user }: { user: user }) => {
 
@@ -31,24 +33,24 @@ const EditUserForm = ({ user }: { user: user }) => {
 
         let imageUrl: string | undefined
         const file = data.file as File
-        // if (file) {
+        if (file) {
 
-        //     const res = await startUpload([file])
+            const res = await startUpload([file])
 
-        //     if (!res) {
-        //         console.log('Something went wrong uploadthing')
-        //         toast({
-        //             title: "Hubo un error al cambiar la imagen",
-        //             description: "Intentalo de nuevo mas tarde"
-        //         })
-        //     }
+            if (!res) {
+                console.log('Something went wrong uploadthing')
+                toast({
+                    title: "Hubo un error al cambiar la imagen",
+                    description: "Intentalo de nuevo mas tarde"
+                })
+            }
 
-        //     const response: string[] = res!.map((r) => {
-        //         return r.serverData.url
-        //     })
+            const response: string[] = res!.map((r) => {
+                return r.serverData.url
+            })
 
-        //     imageUrl = response[0]
-        // }
+            imageUrl = response[0]
+        }
 
 
         const mutateData = {
@@ -70,7 +72,7 @@ const EditUserForm = ({ user }: { user: user }) => {
         }
     })
 
-    // const { startUpload } = useUploadThing("uploadImage")
+    const { startUpload } = useUploadThing("uploadImage")
 
     if (isLoading || isUploading) {
         return (
@@ -128,11 +130,11 @@ const EditUserForm = ({ user }: { user: user }) => {
                         <FormItem>
                             <FormLabel>Last name</FormLabel>
                             <FormControl>
-                                {/* <Dropzone onDrop={(files) => {
+                                <Dropzone onDrop={(files) => {
                                     console.log('onDrop called:', files);
                                     const file = files[0]
                                     field.onChange(file)
-                                }} /> */}
+                                }} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
