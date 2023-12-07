@@ -6,7 +6,7 @@ import { getUser } from "@/server/services/user";
 import { TRPCError } from "@trpc/server";
 
 export const userRouter = createTRPCRouter({
-    update: protectedProcedure.mutation(async ({ input, ctx }) => {
+    update: protectedProcedure.input(updateUserTRPCSchema).mutation(async ({ input, ctx }) => {
 
         // const { userId } = ctx
         // const { firstName, lastName, imageUrl } = input

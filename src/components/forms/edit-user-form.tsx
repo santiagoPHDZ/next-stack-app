@@ -58,7 +58,7 @@ const EditUserForm = ({ user }: { user: user }) => {
         }
 
         setIsUploading(false)
-        mutate()
+        mutate(mutateData)
     }
 
     const { mutate, isLoading, isError, isSuccess } = apiClient.user.update.useMutation({
