@@ -58,10 +58,10 @@ const EditUserForm = ({ user }: { user: user }) => {
         }
 
         setIsUploading(false)
-        // mutate(mutateData)
+        mutate(mutateData)
     }
 
-    const { mutate, isLoading, isError, isSuccess } = apiClient.user.postCurrent.useMutation({
+    const { mutate, isLoading, isError, isSuccess } = apiClient.user.update.useMutation({
         onError: (error) => {
             toast({
                 title: "Ups.. Algo salio mal",
