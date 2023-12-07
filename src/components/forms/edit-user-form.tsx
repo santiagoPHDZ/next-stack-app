@@ -3,7 +3,7 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { user } from '@prisma/client';
 import { Button } from '../ui/button';
-// import { updateUserSchema } from "@/utils/schemas";
+import { updateUserSchema } from "@/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod";
 import Indicator from "../indicator";
@@ -14,12 +14,6 @@ import { apiClient } from '@/trpc/trpc-provider';
 import { Input } from '../ui/input';
 // import Dropzone from '../dropzone';
 import { useToast } from '../ui/use-toast';
-
-const updateUserSchema = z.object({
-    firstName: z.string().max(25).min(1).optional(),
-    lastName: z.string().max(25).min(1).optional(),
-    file: z.instanceof(File).optional(),
-})
 
 const EditUserForm = ({ user }: { user: user }) => {
 
