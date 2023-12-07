@@ -7,11 +7,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 export const userRouter = createTRPCRouter({
-    update: protectedProcedure.input(z.object({
-        firstName: z.string().max(25).min(1).optional(),
-        lastName: z.string().max(25).min(1).optional(),
-        imageUrl: z.string().optional(),
-    })).mutation(async ({ input, ctx }) => {
+    update: protectedProcedure.input(z.object(updateUserTRPCSchema)).mutation(async ({ input, ctx }) => {
 
         // const { userId } = ctx
         // const { firstName, lastName, imageUrl } = input
