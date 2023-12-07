@@ -14,7 +14,7 @@ const Page = async () => {
             <Card className="w-full mt-8">
                 <CardHeader>
                     <CardTitle>
-                        Edit usersdjkdjkassa
+                        Edit user
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
