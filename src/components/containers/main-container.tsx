@@ -1,6 +1,6 @@
 
-import { MAIN_H, MAIN_W } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { MAIN_H, MAIN_W } from "@/utils/constants";
+import { cn } from "@/utils/utils";
 import { ReactNode } from "react";
 
 const MainContainer = ({ className, children }: { className?: string, children: ReactNode }) => {
