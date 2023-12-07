@@ -29,4 +29,8 @@ export const userRouter = createTRPCRouter({
         .query(async ({ input }) => {
             return await getUser()
         }),
+    postCurrent: publicProcedure
+        .mutation(async ({ input }) => {
+            console.log("Toggled")
+        }),
 })

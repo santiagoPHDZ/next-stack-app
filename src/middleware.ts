@@ -3,6 +3,7 @@ import { authMiddleware, redirectToSignIn } from '@clerk/nextjs';
 import { AuthObject } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
+// Redis
 import { Ratelimit } from "@upstash/ratelimit"
 import { redis } from './lib/redis';
 
@@ -33,7 +34,7 @@ async function middleware(req: NextRequest, auth: AuthObject) {
 
   // Rate limit
   const ip = req.ip ?? "127.0.0.1";
-  const { success, pending, limit, reset, remaining } = await rateLimit.limit(ip)
+  const { success, reset, remaining } = await rateLimit.limit(ip)
 
   console.log("remaining: ", remaining)
   
