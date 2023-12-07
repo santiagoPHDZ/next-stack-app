@@ -1,7 +1,7 @@
 
-import EditUserForm from "@/components/forms/edit-user-form";
+// import EditUserForm from "@/components/forms/edit-user-form";
 import Indicator from "@/components/indicator";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getUser } from "@/server/services/user";
 
 const Page = async () => {
@@ -11,7 +11,7 @@ const Page = async () => {
 
     return (
         <div className="w-full h-full">
-            <Card className="w-full mt-8">
+            {/* <Card className="w-full mt-8">
                 <CardHeader>
                     <CardTitle>
                         Edit user
@@ -20,7 +20,8 @@ const Page = async () => {
                 <CardContent>
                     <EditUserForm user={user} />
                 </CardContent>
-            </Card>
+            </Card> */}
+            hi
         </div>
     )
 }
