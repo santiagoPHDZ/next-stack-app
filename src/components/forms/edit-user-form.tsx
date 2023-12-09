@@ -63,6 +63,7 @@ const EditUserForm = ({ user }: { user: user }) => {
 
     const { mutate, isLoading, isError, isSuccess } = apiClient.user.update.useMutation({
         onError: (error) => {
+            console.log(error)
             toast({
                 title: "Ups.. Algo salio mal",
                 description: `Intentalo de nuevo mas tarde, ${error.message}`

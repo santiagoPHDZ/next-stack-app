@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from '@/trpc/trpc-provider';
 import { ThemeProvider } from '@/components/theme-provider';
-// import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/components/ui/toaster';
 
 // Metadata
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               {children}
-              {/* <Toaster /> */}
+              <Toaster />
             </ThemeProvider>
           </body>
         </TRPCReactProvider>
