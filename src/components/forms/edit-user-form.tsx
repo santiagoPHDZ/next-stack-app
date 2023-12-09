@@ -9,10 +9,8 @@ import { z } from "zod";
 import Indicator from "../indicator";
 import { useState } from "react";
 import { useForm } from 'react-hook-form';
-// import { useUploadThing } from '@/lib/uploadthing';
 import { apiClient } from '@/trpc/trpc-provider';
 import { Input } from '../ui/input';
-// import Dropzone from '../dropzone';
 import { useToast } from '../ui/use-toast';
 import { useUploadThing } from '@/lib/uploadthing';
 import Dropzone from '../dropzone';
@@ -130,7 +128,9 @@ const EditUserForm = ({ user }: { user: user }) => {
                         <FormItem>
                             <FormLabel>Last name</FormLabel>
                             <FormControl>
-                                <Dropzone onDrop={(files) => {
+                                <Dropzone 
+                                multiple={false}
+                                onDrop={(files) => {
                                     console.log('onDrop called:', files);
                                     const file = files[0]
                                     field.onChange(file)
