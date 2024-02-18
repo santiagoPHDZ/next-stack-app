@@ -8,6 +8,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from '@/trpc/trpc-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { cn } from '@/lib/utils';
 
 // Metadata
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <TRPCReactProvider cookies={cookies().toString()}>
-          <body className={GeistSans.className}>
+          <body className={cn(GeistSans.className, "overflow-hidden")}>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"

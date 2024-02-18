@@ -15,7 +15,8 @@ const rateLimit = new Ratelimit({
 
 // Clerk middleware
 export default authMiddleware({
-  publicRoutes: ['/', '/api/uploadthing'], // auth is called, but not restricted | on all other routs auth will be requiered
+  publicRoutes: ['/', '/api/uploadthing', '/(api|trpc|users)(.*)', '/api/webhooks(.*)'
+  ], // auth is called, but not restricted | on all other routs auth will be requiered
   // ignoredRoutes: ['/'], // ignored, wont call middleware
   afterAuth(auth, req, evt) {
 
@@ -60,7 +61,9 @@ async function apiMiddleware(req: NextRequest) {
   const ip = req.ip ?? "127.0.0.1";
   const { success, reset, remaining } = await rateLimit.limit(ip)
 
-  console.log("API rate remaining: ", remaining)
+  const pathname = req.nextUrl.pathname
+
+  console.log("API rate remaining: ", remaining, ", called from: ", pathname)
 
   if (!success) {
     console.log("API rate limited")

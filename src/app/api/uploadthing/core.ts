@@ -7,7 +7,7 @@ const create = createUploadthing();
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
-  uploadImage: create({ image: { maxFileSize: "4MB" } })
+  updateBrokerImage: create({ image: { maxFileSize: "4MB" } })
     .middleware(({ req }) => {
       // Get auth 
       const { userId } = getAuth(req);
@@ -23,27 +23,11 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
 
-      const user = await db.user.findUnique({
-        where: {
-          authId: metadata.userId
-        }
-      })
-
-      if (!user) throw Error("Unauthorized")
-
-      const { key, name, size, url } = file
+      // if (!user) throw Error("Unauthorized")
 
       // const url = `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${key}`
 
-      await db.file.create({
-        data: {
-          name,
-          size,
-          url,
-          userId: user.id
-        }
-      })
-
+      console.log(file.url)
       return;
     }),
 } satisfies FileRouter;

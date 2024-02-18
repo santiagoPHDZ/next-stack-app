@@ -33,11 +33,6 @@ const createContext = cache(() => {
 export const apiServer = createTRPCProxyClient<typeof appRouter>({
   transformer,
   links: [
-    loggerLink({
-      enabled: (op) =>
-        process.env.NODE_ENV === "development" ||
-        (op.direction === "down" && op.result instanceof Error),
-    }),
     /**
      * Custom RSC link that lets us invoke procedures without using http requests. Since Server
      * Components always run on the server, we can just call the procedure as a function.

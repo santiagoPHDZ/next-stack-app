@@ -1,66 +1,48 @@
 "use client"
 
-import Link from "next/link"
-import NavbarContainer from "./containers/navbar-container"
-import { HStack } from "./stack"
-import { Text } from "./text"
-import { Button } from "./ui/button"
-import { MoveUpRight } from "lucide-react"
-import { useClerk } from "@clerk/nextjs"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
-import { Avatar } from "@radix-ui/react-avatar"
-import { AvatarFallback, AvatarImage } from "./ui/avatar"
-import { user } from "@prisma/client"
-import { ThemeToggle } from "./theme-toggle"
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { user } from "@prisma/client";
+import { MoveUpRight } from "lucide-react";
 
-const NavBar = ({ user }: { user: user | null }) => {
-
-    const { signOut } = useClerk()
+const Navbar = ({ user }: { user: user | null }) => {
 
     return (
-        <nav>
-            <NavbarContainer className="border-b top-0 z-30 bg-background">
-                <HStack className="w-full h-14 items-center justify-between">
-                    <Link
-                        href="/"
-                    >
-                        <Text level={1} className="text-base font-semibold">
-                            Next Stack App
-                        </Text>
-                    </Link>
+        <nav className="border-b top-0 z-30 bg-background w-full">
 
-                    <HStack className="items-center justify-center space-x-2">
-                        {
-                            user ? (
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Avatar className="h-9 w-9 rounded-full">
-                                            <AvatarImage src={user.imageUrl ?? ""} className=" rounded-full" />
-                                            <AvatarFallback>{user.firstName.charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent>
-                                        <DropdownMenuItem onClick={() => signOut()}>Log Out</DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            ) : (
+            <div className=" flex items-center justify-between h-16 px-6">
+                <Link href="/">
+                    <h1 className="flex text-xl font-extrabold">
+                        <div className=" font-black text-primary-brand">NEXT</div> <div className=" font-semibold text-primary-brand/70">APP</div>
+                    </h1>
+                </Link>
+
+                <div className="flex space-x-4">
+                    {
+                        user ? (
+                            <Link
+                                href="/properties"
+                            >
+                                <Button>
+                                    Portal <MoveUpRight className="ml-2 w-4 h-4" />
+                                </Button>
+                            </Link>
+                        ) : (
+                            <div className="flex items-center justify-center space-x-2">
                                 <Link
                                     href="/dashboard"
                                 >
-                                    <Button variant="link" className=" font-light">
-                                        Get started
-                                        <MoveUpRight className="w-4 h-4 ml-1" />
+                                    <Button>
+                                        Empezar <MoveUpRight className="ml-2 w-4 h-4" />
                                     </Button>
                                 </Link>
-                            )
-                        }
-
-                        <ThemeToggle />
-                    </HStack>
-                </HStack>
-            </NavbarContainer>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
         </nav>
-    )
+    );
 }
 
-export default NavBar
+export default Navbar;

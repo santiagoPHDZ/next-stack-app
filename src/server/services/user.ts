@@ -1,50 +1,66 @@
 import { db } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/server";
 import { user } from "@prisma/client";
 
-export async function getUser(): Promise<user | null> {
+interface UserData {
+    user: user | null,
+}
 
-    const session = await currentUser()
+export async function getUser(session: User): Promise<UserData> {
 
     if (!session) {
         console.log("🟨 Need to log in")
-        return null
+        return {
+            user: null,
+        }
     }
 
-    const sub: string = session?.id
+    console.log(session)
+    const sessionId: string = session?.id
     const email = session?.emailAddresses[0].emailAddress
-    const firstName = session?.firstName
-    const lastName = session?.lastName
+    const firstName = session?.firstName ?? ""
+    const lastName = session?.lastName ?? ""
     const imageUrl: string = session?.imageUrl
 
-    if (!email || !firstName || !lastName) {
-        console.log("🟨 Missing fields")
-        return null
-    }
+    console.log("🟦 CREDENTIALS: ", sessionId)
 
-    console.log("🟦 CREDENTIALS: ", sub, email, firstName)
-
-    const user = await db.user.findFirst({
+    // Get user
+    const user = await db.user.findUnique({
         where: {
-            authId: sub,
+            sessionId,
         }
     })
 
+    // No user found
     if (!user) {
+        return await createUser(sessionId, firstName, lastName, email, imageUrl)
+    }
+
+    return {
+        user
+    }
+}
+
+export async function createUser(sessionId: string, firstName: string, lastName: string, email: string, imageUrl: string) {
+
+    try {
         const newUser = await db.user.create({
             data: {
-                authId: sub,
-                emailAddress: email,
+                sessionId,
+                email,
                 firstName,
                 lastName,
-                imageUrl
-            },
+            }
         })
 
         console.log("🟦 New user created: ", newUser)
 
-        return newUser
+        return {
+            user: newUser
+        }
+    } catch {
+        return {
+            user: null
+        }
     }
-
-    return user
 }
