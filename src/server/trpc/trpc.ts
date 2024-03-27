@@ -3,7 +3,6 @@ import { TRPCError, initTRPC } from '@trpc/server';
 import superjson from 'superjson'
 import { currentUser } from '@clerk/nextjs';
 import { ZodError } from 'zod';
-import { getUser } from '../services/user';
 
 // Create context
 
@@ -20,10 +19,7 @@ interface CreateContextOptions {
 // that goes through your tRPC endpoint.
 
 export const createTRPCContext = async (opts: CreateContextOptions) => {
-  const session = await currentUser();
-
   return {
-    session,
     ...opts
   }
 };
@@ -50,27 +46,3 @@ export const createTRPCRouter = t.router;
 
 // Public procedure
 export const publicProcedure = t.procedure;
-
-// check if the user is signed in, otherwise throw a UNAUTHORIZED CODE
-const isAuthed = t.middleware(async ({ next, ctx }) => {
-  if (!ctx.session || !ctx.session.id) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' })
-  }
-
-  const { user } = await getUser(ctx.session)
-
-  if (!user || !user.id) {
-    throw new TRPCError({ code: "UNAUTHORIZED", message: "Not auth (protected precedure)" })
-  }
-
-  return next({
-    ctx: {
-      session: ctx.session,
-      user,
-      userId: user.id
-    },
-  })
-})
-
-// Protected (authenticated) procedure
-export const protectedProcedure = t.procedure.use(isAuthed);

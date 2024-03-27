@@ -3,8 +3,6 @@ import { GeistSans } from 'geist/font/sans';
 import '@/styles/globals.css'
 import { cookies } from "next/headers";
 
-// Clerk Auth
-import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from '@/trpc/trpc-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
@@ -12,8 +10,8 @@ import { cn } from '@/lib/utils';
 
 // Metadata
 export const metadata: Metadata = {
-  title: 'Next Stack App',
-  description: 'The best way to get started',
+  title: 'FUTURA',
+  description: 'We build the future',
 }
 
 export default function RootLayout({
@@ -22,13 +20,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
       <html lang="en">
         <TRPCReactProvider cookies={cookies().toString()}>
-          <body className={cn(GeistSans.className, "overflow-hidden")}>
+        <body className={cn(GeistSans.className, "overflow-y-hidden overflow-x-hidden")}>
             <ThemeProvider
               attribute="class"
-              defaultTheme="system"
+              defaultTheme="light"
               enableSystem
               disableTransitionOnChange
             >
@@ -38,6 +35,5 @@ export default function RootLayout({
           </body>
         </TRPCReactProvider>
       </html>
-    </ClerkProvider>
   )
 }

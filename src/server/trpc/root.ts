@@ -1,12 +1,12 @@
 
-import { userRouter } from './routers/user';
+import { mediumRoute } from './routers/medium';
 import { createTRPCRouter } from './trpc';
 
 // - Client API definition
 
 // This is where we'll define our tRPC routers. 
 export const appRouter = createTRPCRouter({
-    user: userRouter,
+    medium: mediumRoute
 })
 
 // Export type router type signature,
